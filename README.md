@@ -7,14 +7,14 @@ This is a simple flask API that basically does the same thing as [JCU-Daily-Cour
 API End Points
 ---
 
-URL : `localhost/classinfo` 
-
+URL : `localhost/classinfo`  
 POST parameter : `classname=CPXXXX`
 
 This end point is used to get the information of a **single** class. It will return `None` if it is empty. 
 
-URL : `localhost/roominfo` 
 
+
+URL : `localhost/roominfo`  
 POST parameter : `room=XX-XX`
 
 This end point is used to get the information of a **single** class. It will return `None` if it is empty. 
