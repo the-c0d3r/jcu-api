@@ -17,4 +17,4 @@ This end point is used to get the information of a **single** class. It will ret
 URL : `localhost/roominfo`  
 POST parameter : `room=XX-XX`
 
-This end point is used to get the information of a **single** class. It will return `None` if it is empty. 
+This end point is used to get the information of a **single** room. It will return `None` if it is empty. 
