@@ -1,23 +1,51 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask import request
 from lib.website import Website
+import json
+import time
 
 
 app = Flask(__name__)
+
+global website, lastUpdated
+lastUpdated = time.time()
 website = Website()
+
 
 @app.route("/classinfo", methods=["POST"])
 def classinfo():
-    subjcode = request.form['classname']
+    updateDB()
+    subjcode = request.form['classname'].upper()
     result = website.getClassInfo(subjcode)
+    return jsonify(result.getDict()) if result != None else "No class information available"
 
 @app.route("/roominfo", methods=["POST"])
 def roominfo():
-    room = request.form['room']
+    updateDB()
+    room = request.form['room'].upper()
     result = website.getRoomInfo(room)
+    # result is a list of classes
+    if len(result) > 0:
+        resultJson = jsonify([i.getDict() for i in result])
+        return resultJson
+    else:
+        return "No room information available"
+
+
+def updateDB():
+    global lastUpdated, website
+    now = time.time()
+    if now - lastUpdated >= 1800:
+        # meaning 30 minutes have passed
+        del website
+        website = Website()
+        # starts the parsing process again
+        lastUpdated = now
+        # update the last updated time
 
 @app.route("/getclasses", methods=["POST"])
 def getClasses():
+    updateDB()
     codes = request.form["codes"].split(",")
     result = website.getClasses(codes)
 

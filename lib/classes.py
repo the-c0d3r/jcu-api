@@ -29,13 +29,13 @@ class Classes:
         d = datetime.strptime(data, "%H:%M")
         return d.strftime("%I:%M")
 
-
-"""
-from datetime import datetime
->>> d = datetime.strptime("10:30", "%H:%M")
->>> d.strftime("%I:%M %p")
-'10:30 AM'
->>> d = datetime.strptime("22:30", "%H:%M")
->>> d.strftime("%I:%M %p")
-'10:30 PM
-"""
+    def getDict(self):
+        """
+        return dictionary format notation for jsonifying the object
+        """
+        return {
+            "name": self.name,
+            "type": self.type,
+            "time": self.formatTime(),
+            "room": self.room
+        }

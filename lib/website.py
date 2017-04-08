@@ -32,7 +32,7 @@ class Website:
 
                 self.classes.append(tempcls)
 
-    def getClassInfo(self, subjcode):
+    def getClassInfo(self, subjCode):
         """
         Filter the class using subject code and return class object
         """
@@ -59,4 +59,4 @@ class Website:
         for cls in self.classes:
             if cls.room.lower() == roomNumber.lower():
                 result.append(cls)
-        return reslt
+        return result
