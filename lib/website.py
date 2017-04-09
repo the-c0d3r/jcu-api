@@ -12,7 +12,10 @@ class Website:
         self.parse()
 
     def getPage(self):
-        return urllib.urlopen(self.url).readlines()
+        try:
+            return urllib.urlopen(self.url).readlines()
+        except IOError:
+            print("Unable to connect to JCU")
 
     def parse(self):
         pattern = re.compile(r'<td class="BTsubj">(.+)</td><td class="BTclass">(.+)</td><td class="BTtime">(.+)</td><td class="BTroom">(.+)</td></tr>')
