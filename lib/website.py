@@ -55,7 +55,7 @@ class Website:
         """
         result = []
         for subjCode in codes:
-            temp = self.getClassInfo(subjCode)
+            temp = self.getClassInfo(subjCode.upper())
             if temp:
                 result.append(temp)
         return result
