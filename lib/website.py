@@ -1,5 +1,6 @@
 import urllib
 import re
+#  import requests
 from classes import Classes
 
 
@@ -13,9 +14,13 @@ class Website:
 
     def getPage(self):
         try:
+            #  headers = {'User Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
+            #  r = requests.get(self.url, headers=headers)
+            #  return r.read()
             return urllib.urlopen(self.url).readlines()
         except IOError:
             print("Unable to connect to JCU")
+            exit()
 
     def parse(self):
         pattern = re.compile(r'<td class="BTsubj">(.+)</td><td class="BTclass">(.+)</td><td class="BTtime">(.+)</td><td class="BTroom">(.+)</td></tr>')
@@ -53,6 +58,7 @@ class Website:
             temp = self.getClassInfo(subjCode)
             if temp:
                 result.append(temp)
+        return result
 
     def getRoomInfo(self, roomNumber):
         """

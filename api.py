@@ -31,6 +31,18 @@ def roominfo():
     else:
         return "No room information available"
 
+@app.route("/getclasses", methods=["POST"])
+def getclasses():
+    updateDB()
+    codes = request.form['codes']
+    if len(codes) == 0:
+        return "No subject codes given"
+    else:
+        result = website.getClasses(codes)
+        resultJson = jsonify([i.getDict() for i in result])
+        return resultJson
+
+# TODO handle incorrect API calls or parameter
 
 def updateDB():
     global lastUpdated, website
