@@ -34,7 +34,7 @@ def roominfo():
 @app.route("/getclasses", methods=["POST"])
 def getclasses():
     updateDB()
-    codes = request.form['codes']
+    codes = request.form['codes'].split(',')
     if len(codes) == 0:
         return "No subject codes given"
     else:
