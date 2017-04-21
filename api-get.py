@@ -17,19 +17,33 @@ def classinfo():
     updateDB()
     subjcode = request.args.get('classname').upper()
     result = website.getClassInfo(subjcode)
-    return jsonify(result.getDict()) if result != None else "No class information available"
+
+    if result == None:
+        return jsonify({"count":0})
+    else:
+        resultJson = {
+            "count": 1,
+            "result": [result.getDict()]
+        }
+        print(resultJson)
+        return jsonify(resultJson)
 
 @app.route("/roominfo")
 def roominfo():
     updateDB()
     room = request.args.get('room').upper()
     result = website.getRoomInfo(room)
+    resultJson = {
+        "count": len(result),
+        "result": []
+        }
     # result is a list of classes
     if len(result) > 0:
-        resultJson = jsonify([i.getDict() for i in result])
-        return resultJson
+        for cl in result:
+            resultJson["result"].append(cl.getDict())
+        return jsonify(resultJson)
     else:
-        return "No room information available"
+        return jsonify({"count": 0})
 
 @app.route("/getclasses")
 def getclasses():
@@ -39,14 +53,23 @@ def getclasses():
         return "No subject codes given"
     else:
         result = website.getClasses(codes)
-        resultJson = jsonify([i.getDict() for i in result])
-        return resultJson
+        if len(result) == 0:
+            return jsonify({"count":0})
+        else:
+            resultJson = {
+                "count": len(result),
+                "result": []
+            }
+            for cl in result:
+                resultJson["result"].append(cl.getDict())
+            return jsonify(resultJson)
 
 # TODO handle incorrect API calls or parameter
 
 def updateDB():
     global lastUpdated, website
     now = time.time()
+    # if now - lastUpdated >= 1800:
     if now - lastUpdated >= 1800:
         # meaning 30 minutes have passed
         del website
@@ -54,12 +77,6 @@ def updateDB():
         # starts the parsing process again
         lastUpdated = now
         # update the last updated time
-
-@app.route("/getclasses")
-def getClasses():
-    updateDB()
-    codes = request.args.get("codes").split(",")
-    result = website.getClasses(codes)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

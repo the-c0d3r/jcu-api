@@ -39,3 +39,6 @@ class Classes:
             "time": self.formatTime(),
             "room": self.room
         }
+
+    def toString(self):
+        return "Name : {}\n,Type : {},\nTime : {},\nRoom : {}".format(self.name, self.type, self.formatTime(), self.room)

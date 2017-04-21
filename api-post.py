@@ -27,7 +27,8 @@ def roominfo():
     # result is a list of classes
     if len(result) > 0:
         resultJson = jsonify([i.getDict() for i in result])
-        return resultJson
+        # return resultJson
+        return result[0]
     else:
         return "No room information available"
 
