@@ -64,8 +64,6 @@ def getclasses():
                 resultJson["result"].append(cl.getDict())
             return jsonify(resultJson)
 
-# TODO handle incorrect API calls or parameter
-
 def updateDB():
     global lastUpdated, website
     now = time.time()
