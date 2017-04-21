@@ -17,7 +17,7 @@ GET/POST parameter : `room=XX-XX`
 
 This end point is used to get the information of a **single** room. It will return `None` if it is empty.  
 
-URL : `localhost/getclasses`
+URL : `localhost/getclasses`  
 GET/POST parameter : `codes=CPXXX,CPXXX,CPXXX`  
 
 This end point will return the related information about the classes using the subject codes provided
